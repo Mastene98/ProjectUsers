@@ -1,0 +1,71 @@
+L’idée générale est celle-ci : 
+
+1   -  Créer un projet Jenkins  
+
+Installer/configurer Jenkins.  
+
+Créer un job ou une pipeline Jenkins.  
+
+
+2   -  Créer un dépôt Git  
+
+Mettre dedans un petit projet basique.  
+
+Ajouter la collection Postman.  
+
+Ajouter éventuellement un fichier d’environnement Postman.  
+
+Ajouter le fichier Jenkinsfile avec le code Groovy de la pipeline.  
+
+
+3  -  Écrire la pipeline Jenkins en Groovy  
+
+Récupérer le projet depuis le repo.  
+
+Installer Newman.  
+
+Installer newman-reporter-htmlextra.  
+
+Exécuter la collection Postman.  
+
+Générer un rapport HTML.  
+
+
+4  -  Créer les environnements  
+
+Par exemple : dev, test, prod, ou au minimum un environnement Postman avec les variables nécessaires.  
+
+Utiliser ces variables dans la collection.  
+
+
+5  -  Créer un webhook ou trigger  
+
+À chaque push sur le dépôt Git, Jenkins lance automatiquement un build.  
+
+Donc pas besoin de lancer manuellement la pipeline à chaque fois.  
+
+
+6  -  Gérer le résultat du build  
+
+Si les tests passent : build en succès.  
+
+Si les tests échouent : build en échec.  
+
+Dans les deux cas, générer un rapport.  
+
+Envoyer un mail avec le statut et idéalement le lien ou le fichier du rapport.  
+
+
+7  -  Rédiger un compte rendu final  
+
+Présenter les étapes réalisées.  
+
+Expliquer les outils utilisés : Jenkins, Git/GitHub, Postman, Newman, Groovy, plugin email, webhook.  
+
+Montrer le fonctionnement global.  
+
+Ajouter des captures d’écran si demandé.  
+
+Expliquer ce que fait la pipeline. 
+
+ 
