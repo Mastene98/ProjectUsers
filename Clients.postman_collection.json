@@ -1,0 +1,548 @@
+{
+  "info": {
+    "_postman_id": "6a214b62-a33d-4b39-8441-3fc5866b5b7b",
+    "name": "Clients",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54593758"
+  },
+  "item": [
+    {
+      "name": "PostNewClient",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"nom\", pm.variables.replaceIn(\"{{$randomLastName}}\"));\r",
+              "\r",
+              "pm.collectionVariables.set(\"prenom\", pm.variables.replaceIn(\"{{$randomFirstName}}\"));\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Le status du code retour est 201\", function(){\r",
+              "    pm.response.to.have.status(201)\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json()\r",
+              "pm.collectionVariables.set(\"UserId\", jsonData.id)\r",
+              "console.info(\" Le user créé a l identifiant \" + pm.collectionVariables.get(\"UserId\"));\r",
+              "\r",
+              "pm.test(\"Le temps de réponse est inférieur a 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "        {\r\n        \"lastname\": \"{{nom}}\",\r\n        \"firstname\": \"{{prenom}}\",\r\n        \"address\": {\r\n            \"numStreet\": 15,\r\n            \"streetName\": \"{{$randomStreetName}}\",\r\n            \"postalCode\": \"75001\",\r\n            \"city\": \"{{$randomCity}}\"\r\n        }\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users",
+          "protocol": "https",
+          "host": [
+            "695bcf701d8041d5eeb88ad5",
+            "mockapi",
+            "io"
+          ],
+          "path": [
+            "testapi",
+            "api",
+            "v1",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetClientById",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\" Le status du code est 200\", function(){\r",
+              "    pm.response.to.have.status(200)\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Le temps de réponse est inférieur a 500 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
+          "protocol": "https",
+          "host": [
+            "695bcf701d8041d5eeb88ad5",
+            "mockapi",
+            "io"
+          ],
+          "path": [
+            "testapi",
+            "api",
+            "v1",
+            "users",
+            "{{UserId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LastnameModifié",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Le code retour est 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Le temps de réponse est inférieur à 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json()\r",
+              "pm.test(\"Le lastname a bien été modifié\", function () {\r",
+              "    pm.expect(jsonData.lastname).to.eql(\"Son\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"lastname\": \"Son\",\r\n    \"firstname\": \"Jaylan\",\r\n    \"address\": {\r\n        \"numStreet\": 15,\r\n        \"streetName\": \"Grady Gardens\",\r\n        \"postalCode\": \"75001\",\r\n        \"city\": \"Hackensack\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
+          "protocol": "https",
+          "host": [
+            "695bcf701d8041d5eeb88ad5",
+            "mockapi",
+            "io"
+          ],
+          "path": [
+            "testapi",
+            "api",
+            "v1",
+            "users",
+            "{{UserId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FirstnameModifié",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Le code retour est 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Le temps de réponse est inférieur à 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json()\r",
+              "pm.test(\"Le firstname a bien été modifié\", function () {\r",
+              "    pm.expect(jsonData.firstname).to.eql(\"Goku\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"lastname\": \"Son\",\r\n    \"firstname\": \"Goku\",\r\n    \"address\": {\r\n        \"numStreet\": 15,\r\n        \"streetName\": \"Grady Gardens\",\r\n        \"postalCode\": \"75001\",\r\n        \"city\": \"Hackensack\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
+          "protocol": "https",
+          "host": [
+            "695bcf701d8041d5eeb88ad5",
+            "mockapi",
+            "io"
+          ],
+          "path": [
+            "testapi",
+            "api",
+            "v1",
+            "users",
+            "{{UserId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AfficherUserId",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Le status du code retour est 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Le temps de réponse est inférieur à 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"La réponse est au format JSON\", function () {\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
+          "protocol": "https",
+          "host": [
+            "695bcf701d8041d5eeb88ad5",
+            "mockapi",
+            "io"
+          ],
+          "path": [
+            "testapi",
+            "api",
+            "v1",
+            "users",
+            "{{UserId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "LastnameModifié2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Le code retour est 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Le temps de réponse est inférieur à 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json()\r",
+              "pm.test(\"Le lastname a bien été modifié\", function () {\r",
+              "    pm.expect(jsonData.lastname).to.eql(\"Hamid\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"lastname\": \"Hamid\",\r\n    \"firstname\": \"Goku\",\r\n    \"address\": {\r\n        \"numStreet\": 15,\r\n        \"streetName\": \"Grady Gardens\",\r\n        \"postalCode\": \"75001\",\r\n        \"city\": \"Hackensack\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
+          "protocol": "https",
+          "host": [
+            "695bcf701d8041d5eeb88ad5",
+            "mockapi",
+            "io"
+          ],
+          "path": [
+            "testapi",
+            "api",
+            "v1",
+            "users",
+            "{{UserId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "FirstnameModifié2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Le code retour est 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Le temps de réponse est inférieur à 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json()\r",
+              "pm.test(\"Le firstname a bien été modifié\", function () {\r",
+              "    pm.expect(jsonData.firstname).to.eql(\"Boualam\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"lastname\": \"Hamid\",\r\n    \"firstname\": \"Boualam\",\r\n    \"address\": {\r\n        \"numStreet\": 15,\r\n        \"streetName\": \"Grady Gardens\",\r\n        \"postalCode\": \"75001\",\r\n        \"city\": \"Hackensack\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
+          "protocol": "https",
+          "host": [
+            "695bcf701d8041d5eeb88ad5",
+            "mockapi",
+            "io"
+          ],
+          "path": [
+            "testapi",
+            "api",
+            "v1",
+            "users",
+            "{{UserId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AfficherUserId2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Le status du code retour est 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Le temps de réponse est inférieur à 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"La réponse est au format JSON\", function () {\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
+          "protocol": "https",
+          "host": [
+            "695bcf701d8041d5eeb88ad5",
+            "mockapi",
+            "io"
+          ],
+          "path": [
+            "testapi",
+            "api",
+            "v1",
+            "users",
+            "{{UserId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DeleteClient",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test.skip(\"Le status du code retour est 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test.skip(\"Le temps de réponse est inférieur à 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
+          "protocol": "https",
+          "host": [
+            "695bcf701d8041d5eeb88ad5",
+            "mockapi",
+            "io"
+          ],
+          "path": [
+            "testapi",
+            "api",
+            "v1",
+            "users",
+            "{{UserId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "nom",
+      "value": ""
+    },
+    {
+      "key": "prenom",
+      "value": ""
+    },
+    {
+      "key": "UserId",
+      "value": ""
+    }
+  ]
+}
