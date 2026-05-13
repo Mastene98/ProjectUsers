@@ -44,7 +44,7 @@ tests_api:
       transporter.sendMail({
         from: process.env.MAIL_USERNAME,
         to: process.env.MAIL_TO,
-        subject: "Rapport tests API - GitLab CI/CD - " + process.env.CI_JOB_STATUS,
+        subject: "Rapport tests API Mastene Messouya - GitLab CI/CD - " + process.env.CI_JOB_STATUS,
         text: body,
         attachments: [
           {
