@@ -13,11 +13,7 @@ tests_api:
     - mkdir -p reports
 
   script:
-    - |
-      npx newman run Clients.postman_collection.json \
-      -e env.postman_environment.json \
-      --reporters cli,htmlextra \
-      --reporter-htmlextra-export reports/RapportCollectionClients.html
+    - npx newman run Clients.postman_collection.json -e env.postman_environment.json --reporters cli,htmlextra --reporter-htmlextra-export reports/RapportCollectionClients.html
 
   after_script:
     - |
@@ -34,25 +30,22 @@ tests_api:
         }
       });
 
+      const body =
+        "Bonjour,\n\n" +
+        "Les tests API ont ete executes automatiquement avec GitLab CI/CD.\n\n" +
+        "Projet : " + process.env.CI_PROJECT_PATH + "\n" +
+        "Branche : " + process.env.CI_COMMIT_BRANCH + "\n" +
+        "Commit : " + process.env.CI_COMMIT_SHA + "\n" +
+        "Statut du job : " + process.env.CI_JOB_STATUS + "\n\n" +
+        "Le rapport HTML est joint a ce mail.\n\n" +
+        "Cordialement,\n" +
+        "GitLab CI/CD";
+
       transporter.sendMail({
         from: process.env.MAIL_USERNAME,
         to: process.env.MAIL_TO,
-        subject: `Rapport tests API - GitLab CI/CD - ${process.env.CI_JOB_STATUS}`,
-        text: `
-Bonjour,
-
-Les tests API ont été exécutés automatiquement avec GitLab CI/CD.
-
-Projet : ${process.env.CI_PROJECT_PATH}
-Branche : ${process.env.CI_COMMIT_BRANCH}
-Commit : ${process.env.CI_COMMIT_SHA}
-Statut du job : ${process.env.CI_JOB_STATUS}
-
-Le rapport HTML est joint à ce mail.
-
-Cordialement,
-GitLab CI/CD
-        `,
+        subject: "Rapport tests API - GitLab CI/CD - " + process.env.CI_JOB_STATUS,
+        text: body,
         attachments: [
           {
             filename: "RapportCollectionClients.html",
