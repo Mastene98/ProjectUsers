@@ -9,7 +9,7 @@ tests_api:
   before_script:
     - node -v
     - npm -v
-    - npm install newman newman-reporter-htmlextra --no-save
+    - npm install newman newman-reporter-htmlextra nodemailer --no-save
     - mkdir -p reports
 
   script:
@@ -19,9 +19,53 @@ tests_api:
       --reporters cli,htmlextra \
       --reporter-htmlextra-export reports/RapportCollectionClients.html
 
+  after_script:
+    - |
+      cat > send-mail.js <<'EOF'
+      const nodemailer = require("nodemailer");
+
+      const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.MAIL_USERNAME,
+          pass: process.env.MAIL_PASSWORD
+        }
+      });
+
+      transporter.sendMail({
+        from: process.env.MAIL_USERNAME,
+        to: process.env.MAIL_TO,
+        subject: `Rapport tests API - GitLab CI/CD - ${process.env.CI_JOB_STATUS}`,
+        text: `
+Bonjour,
+
+Les tests API ont été exécutés automatiquement avec GitLab CI/CD.
+
+Projet : ${process.env.CI_PROJECT_PATH}
+Branche : ${process.env.CI_COMMIT_BRANCH}
+Commit : ${process.env.CI_COMMIT_SHA}
+Statut du job : ${process.env.CI_JOB_STATUS}
+
+Le rapport HTML est joint à ce mail.
+
+Cordialement,
+GitLab CI/CD
+        `,
+        attachments: [
+          {
+            filename: "RapportCollectionClients.html",
+            path: "reports/RapportCollectionClients.html"
+          }
+        ]
+      });
+      EOF
+
+      node send-mail.js
+
   artifacts:
     when: always
     paths:
       - reports/RapportCollectionClients.html
-
     expire_in: 7 days
