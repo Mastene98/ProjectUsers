@@ -23,4 +23,5 @@ tests_api:
     when: always
     paths:
       - reports/RapportCollectionClients.html
+
     expire_in: 7 days
