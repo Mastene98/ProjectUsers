@@ -74,7 +74,7 @@ jobs:
             Le rapport HTML est joint à ce mail.
 
             Cordialement,
-            GitHub Actions
+            Mastene Messouya - GitHub Actions
           attachments: reports/RapportCollectionClients.html
 
       - name: 9 - Gestion du statut final
