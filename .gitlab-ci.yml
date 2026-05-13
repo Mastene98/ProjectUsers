@@ -1,0 +1,26 @@
+image: node:20
+
+stages:
+  - test
+
+tests_api:
+  stage: test
+
+  before_script:
+    - node -v
+    - npm -v
+    - npm install newman newman-reporter-htmlextra --no-save
+    - mkdir -p reports
+
+  script:
+    - |
+      npx newman run Clients.postman_collection.json \
+      -e env.postman_environment.json \
+      --reporters cli,htmlextra \
+      --reporter-htmlextra-export reports/RapportCollectionClients.html
+
+  artifacts:
+    when: always
+    paths:
+      - reports/RapportCollectionClients.html
+    expire_in: 7 days
