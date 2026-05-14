@@ -58,18 +58,9 @@
           }
         },
         "url": {
-          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users",
-          "protocol": "https",
+          "raw": "{{env}}",
           "host": [
-            "695bcf701d8041d5eeb88ad5",
-            "mockapi",
-            "io"
-          ],
-          "path": [
-            "testapi",
-            "api",
-            "v1",
-            "users"
+            "{{env}}"
           ]
         }
       },
@@ -111,18 +102,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
-          "protocol": "https",
+          "raw": "{{env}}/{{UserId}}",
           "host": [
-            "695bcf701d8041d5eeb88ad5",
-            "mockapi",
-            "io"
+            "{{env}}"
           ],
           "path": [
-            "testapi",
-            "api",
-            "v1",
-            "users",
             "{{UserId}}"
           ]
         }
@@ -179,18 +163,11 @@
           }
         },
         "url": {
-          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
-          "protocol": "https",
+          "raw": "{{env}}/{{UserId}}",
           "host": [
-            "695bcf701d8041d5eeb88ad5",
-            "mockapi",
-            "io"
+            "{{env}}"
           ],
           "path": [
-            "testapi",
-            "api",
-            "v1",
-            "users",
             "{{UserId}}"
           ]
         }
@@ -236,18 +213,11 @@
           }
         },
         "url": {
-          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
-          "protocol": "https",
+          "raw": "{{env}}/{{UserId}}",
           "host": [
-            "695bcf701d8041d5eeb88ad5",
-            "mockapi",
-            "io"
+            "{{env}}"
           ],
           "path": [
-            "testapi",
-            "api",
-            "v1",
-            "users",
             "{{UserId}}"
           ]
         }
@@ -283,18 +253,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
-          "protocol": "https",
+          "raw": "{{env}}/{{UserId}}",
           "host": [
-            "695bcf701d8041d5eeb88ad5",
-            "mockapi",
-            "io"
+            "{{env}}"
           ],
           "path": [
-            "testapi",
-            "api",
-            "v1",
-            "users",
             "{{UserId}}"
           ]
         }
@@ -340,18 +303,11 @@
           }
         },
         "url": {
-          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
-          "protocol": "https",
+          "raw": "{{env}}/{{UserId}}",
           "host": [
-            "695bcf701d8041d5eeb88ad5",
-            "mockapi",
-            "io"
+            "{{env}}"
           ],
           "path": [
-            "testapi",
-            "api",
-            "v1",
-            "users",
             "{{UserId}}"
           ]
         }
@@ -397,18 +353,11 @@
           }
         },
         "url": {
-          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
-          "protocol": "https",
+          "raw": "{{env}}/{{UserId}}",
           "host": [
-            "695bcf701d8041d5eeb88ad5",
-            "mockapi",
-            "io"
+            "{{env}}"
           ],
           "path": [
-            "testapi",
-            "api",
-            "v1",
-            "users",
             "{{UserId}}"
           ]
         }
@@ -444,18 +393,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
-          "protocol": "https",
+          "raw": "{{env}}/{{UserId}}",
           "host": [
-            "695bcf701d8041d5eeb88ad5",
-            "mockapi",
-            "io"
+            "{{env}}"
           ],
           "path": [
-            "testapi",
-            "api",
-            "v1",
-            "users",
             "{{UserId}}"
           ]
         }
@@ -488,18 +430,11 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "https://695bcf701d8041d5eeb88ad5.mockapi.io/testapi/api/v1/users/{{UserId}}",
-          "protocol": "https",
+          "raw": "{{env}}/{{UserId}}",
           "host": [
-            "695bcf701d8041d5eeb88ad5",
-            "mockapi",
-            "io"
+            "{{env}}"
           ],
           "path": [
-            "testapi",
-            "api",
-            "v1",
-            "users",
             "{{UserId}}"
           ]
         }

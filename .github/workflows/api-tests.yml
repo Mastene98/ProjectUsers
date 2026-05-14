@@ -6,6 +6,16 @@ on:
       - main
 
   workflow_dispatch:
+    inputs:
+      environnement:
+        description: "Choisir l'environnement Postman"
+        required: true
+        default: "Test"
+        type: choice
+        options:
+          - Test
+          - PP
+          - Prod
 
 jobs:
   tests-api:
@@ -38,7 +48,7 @@ jobs:
         continue-on-error: true
         run: |
           npx newman run Clients.postman_collection.json \
-            -e env.postman_environment.json \
+            -e ${{ github.event.inputs.environnement || 'Test' }}.postman_environment.json \
             --reporters cli,htmlextra \
             --reporter-htmlextra-export reports/RapportCollectionClients.html
 
